@@ -9,6 +9,8 @@ public class EnemyController : MonoBehaviour
     public float moveDistance = 1f;
     public float timeStep = 1f;
 
+    
+
     bool isMovingRight = true;
 
     // Use this for initialization
@@ -37,6 +39,7 @@ public class EnemyController : MonoBehaviour
             // If aliens group reached the right-most edge, flip their direction
             if (transform.position.x >= maxPosX)
             {
+                // When enemies reach their max position, they move down the screen a little bit
                 transform.position = currentPos + new Vector3(0f, -0.25f, 0f);
                 isMovingRight = false;
             }
@@ -51,6 +54,7 @@ public class EnemyController : MonoBehaviour
             // If aliens group reached the left-most edge, flip their direction
             if (transform.position.x <= minPosX)
             {
+                // When enemies reach their min position, they move down the screen a little bit
                 transform.position = currentPos + new Vector3(0f, -0.25f, 0f);
                 isMovingRight = true;
             }
