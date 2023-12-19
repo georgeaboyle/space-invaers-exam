@@ -6,10 +6,26 @@ using UnityEngine.SceneManagement;
 public class EnemyBehaviour : MonoBehaviour
 {
     public AudioClip destructionSFX;
+    
     // Variable to count enemies
-    public int EnemyCount;
+    public static int EnemyCount = 0;
 
    
+
+    // Function to count up enemies on spawn
+    public void OnEnable()
+    {
+        EnemyCount++;
+        print(EnemyCount);
+    }
+
+    // Function to count down enemies on destruction and call GameOver function
+    public void OnDisable()
+    {
+        EnemyCount--;
+        print(EnemyCount);
+        GameOver();
+    }
 
     // physical sim hits. For Unity to call this, at least one of the colliding objects
     // needs to have their RigidBody component set to "Dynamic" for Body Type
@@ -28,8 +44,7 @@ public class EnemyBehaviour : MonoBehaviour
         // indeed a player projectile
         if (collision.tag == "PlayerProjectile")
         {
-            // Calls the function to decrease enemy count and check win con
-            EnemyDestroyed();
+            
 
             // Play an audio clip in the scene and not attached to the alien
             // so the sound keeps playing even after it's destroyed
@@ -41,19 +56,12 @@ public class EnemyBehaviour : MonoBehaviour
             // Destroy the projectile game object
             Destroy(collision.gameObject);
 
+            
 
-           
+
         }
     }
-
-    // A function to count how many Enemies have been destroyed 
-    public void EnemyDestroyed()
-    {
-        EnemyCount--;
-        print("One down " + EnemyCount + " to go!");
-        GameOver();
-    }
-
+    
 
     // A function to end the game when all enemies have died
     void GameOver()
@@ -62,7 +70,9 @@ public class EnemyBehaviour : MonoBehaviour
         {
             SceneManager.LoadScene("LoveWins");
         }
+
+
     }
 
-   
+
 }
